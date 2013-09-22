@@ -14,4 +14,7 @@ Gem::Specification.new do |gem|
   gem.name          = "penpal"
   gem.require_paths = ["lib"]
   gem.version       = Penpal::VERSION
+
+  gem.add_development_dependency "minitest"
+  gem.add_development_dependency "webmock"
 end
