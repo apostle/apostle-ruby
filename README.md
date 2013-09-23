@@ -114,7 +114,7 @@ queue.results[:invalid].first._exception
 
 You have access to `#size` and `#clear` on the queue. You can use this to group requests.
 
-```
+```ruby
 users.each do |user|
 	queue << Penpan::Mail.new('welcome', email: user.email)
 	if queue.size == 1000
@@ -126,7 +126,7 @@ end
 
 Or use the helper method `#flush`, which does exactly this, calls `#deliver` then `#clear` if delivery succeeds.
 
-```
+```ruby
 users.each do |user|
 	queue << Penpan::Mail.new('welcome', email: user.email)
 	if queue.size == 1000
