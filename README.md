@@ -66,7 +66,10 @@ mail.reply_to = 'noreply@example.com'
 You can provide custom headers to be sent with your email via `#header`.
 
 ```ruby
+# Set
 mail.header 'X-Some-Header', 'my custom header'
+
+# Get
 mail.header 'X-Some-Header'
 => "my custom header"
 ```
@@ -109,7 +112,7 @@ queue.results[:invalid].first._exception
 
 ### Helpers
 
-You have access to `size` and `clear` on the queue. You can use this to group requests.
+You have access to `#size` and `#clear` on the queue. You can use this to group requests.
 
 ```
 users.each do |user|
@@ -121,7 +124,7 @@ users.each do |user|
 end
 ```
 
-Or use the helper method `flush`, which does exactly this, calls `deliver` then `clear` if delivery succeeds.
+Or use the helper method `#flush`, which does exactly this, calls `#deliver` then `#clear` if delivery succeeds.
 
 ```
 users.each do |user|
@@ -137,7 +140,7 @@ end
 If delivery to Penpal fails, an exception will be raised. There are various events that could cause a failure:
 
 * `Penpal::Unauthorized`: The app key was not provided, or valid
-* `Penpal::UnprocessableEntity`: The server returned a 422 response. Check the content of the message for more details, but this will likely be a validation / content error.
+* `Penpal::UnprocessableEntity`: The server returned a 422 response. Check the content of the message for more details, but this will likely be a validation / content error
 * `Penpal::ServerError`: Something went wrong at the Penpal API, you should try again with exponential backoff
 * `Penpal::Forbidden`: The server returned a 403 response. This should not occur on the delivery API
 * `Penpal::DeliveryError`: Anything which isn't covered by the above exceptions
