@@ -56,7 +56,7 @@ Penpal::Mail.new('welcome_email', email: "mal@mal.co.nz", name: "Mal Curtis").de
 Although the `from` address is set up in your template, you can override that for any individual email, or provide a reply to address.
 
 ```ruby
-mail.from = 'support@example.com`
+mail.from = 'support@example.com'
 mail.reply_to = 'noreply@example.com'
 ```
 
