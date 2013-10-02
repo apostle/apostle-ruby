@@ -39,12 +39,12 @@ module Penpal
 
     def deliver!
       # Validate the minimum requirement of a recipient and template
-      unless Penpal.app_key
+      unless Penpal.domain_key
         raise DeliveryError,
-          "No Penpal App Key has been defined. Preferably this should be in your environment, as ENV['PENPAL_APP_KEY']. If you need to configure this manually, you can call Penpal.configure.
+          "No Penpal Domain Key has been defined. Preferably this should be in your environment, as ENV['PENPAL_DOMAIN_KEY']. If you need to configure this manually, you can call Penpal.configure.
 
       Penpal.configure do |config|
-        config.app_key = 'Your app key'
+        config.domain_key = 'Your domain key'
       end"
       end
 
@@ -100,7 +100,7 @@ module Penpal
       req = Net::HTTP::Post.new(
         "/",
         'Content-Type' =>'application/json',
-        "Authorization" => "Bearer #{Penpal.app_key}")
+        "Authorization" => "Bearer #{Penpal.domain_key}")
       if delivery_api.user
         req.basic_auth delivery_api.user, delivery_api.password
       end

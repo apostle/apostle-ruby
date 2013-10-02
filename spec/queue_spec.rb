@@ -1,6 +1,6 @@
 require_relative 'spec_helper'
 
-Penpal.app_key = "abc123"
+Penpal.domain_key = "abc123"
 
 describe Penpal::Queue do
   it "sends the auth header" do

@@ -5,8 +5,8 @@ require 'uri'
 
 module Penpal
   # TODO: Hardcode default delivery host
-  @@delivery_host = URI(ENV['PENPAL_DELIVERY_HOST'] || 'http://0.0.0.0:3001')
-  @@app_key = ENV['PENPAL_APP_KEY']
+  @@delivery_host = URI(ENV['PENPAL_DELIVERY_HOST'] || 'http://penpal-app.herokuapp.com')
+  @@domain_key = ENV['PENPAL_DOMAIN_KEY']
 
   def self.delivery_host=(host)
     @@delivery_host = host
@@ -21,12 +21,12 @@ module Penpal
     end
   end
 
-  def self.app_key=(key)
-    @@app_key = key
+  def self.domain_key=(key)
+    @@domain_key = key
   end
 
-  def self.app_key
-    @@app_key
+  def self.domain_key
+    @@domain_key
   end
 
   class << self

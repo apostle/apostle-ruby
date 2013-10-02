@@ -4,7 +4,7 @@ require 'penpal'
 describe Penpal::Mail do
   before do
     Penpal.configure do |config|
-     config.app_key = "abc"
+     config.domain_key = "abc"
     end
   end
 

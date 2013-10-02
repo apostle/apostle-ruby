@@ -139,7 +139,7 @@ end
 
 If delivery to Penpal fails, an exception will be raised. There are various events that could cause a failure:
 
-* `Penpal::Unauthorized`: The app key was not provided, or valid
+* `Penpal::Unauthorized`: The domain key was not provided, or valid
 * `Penpal::UnprocessableEntity`: The server returned a 422 response. Check the content of the message for more details, but this will likely be a validation / content error
 * `Penpal::ServerError`: Something went wrong at the Penpal API, you should try again with exponential backoff
 * `Penpal::Forbidden`: The server returned a 403 response. This should not occur on the delivery API
