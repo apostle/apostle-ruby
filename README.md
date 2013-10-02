@@ -16,6 +16,16 @@ Or install it yourself as:
 
     $ gem install penpal
 
+## Domain Key
+
+You will need to provide your penpal domain key to send emails. Penpal looks in `ENV['PENPAL_DOMAIN_KEY']`, or you can set it manually.
+
+```ruby
+Penpal.configure do |config|
+	config.domain_key = 'Your domain key'
+end
+```
+
 ## Sending Email
 
 Sending an email is easy. A minimal email might look like this.
