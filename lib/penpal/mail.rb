@@ -58,10 +58,10 @@ module Penpal
 
       queue = Penpal::Queue.new
       queue.add self
-      results = queue.deliver!
+      queue.deliver!
 
       # Return true or false depending on successful delivery
-      if results[:valid].include?(self)
+      if queue.results[:valid].include?(self)
         return true
       else
         raise _exception
