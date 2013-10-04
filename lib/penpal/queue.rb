@@ -62,7 +62,7 @@ module Penpal
       # Deliver the payload
       response = deliver_payload(payload)
 
-      results
+      true
     end
 
     private
