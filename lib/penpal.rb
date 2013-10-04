@@ -7,6 +7,7 @@ module Penpal
   # TODO: Hardcode default delivery host
   @@delivery_host = URI(ENV['PENPAL_DELIVERY_HOST'] || 'http://penpal-deliver.herokuapp.com')
   @@domain_key = ENV['PENPAL_DOMAIN_KEY']
+  @@deliver = true
 
   def self.delivery_host=(host)
     @@delivery_host = host
@@ -27,6 +28,14 @@ module Penpal
 
   def self.domain_key
     @@domain_key
+  end
+
+  def self.deliver=(bool)
+    @@deliver = !!bool
+  end
+
+  def self.deliver
+    @@deliver
   end
 
   class << self

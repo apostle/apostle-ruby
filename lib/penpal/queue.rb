@@ -38,6 +38,8 @@ module Penpal
     end
 
     def deliver!
+      return true unless Penpal.deliver
+
       # Validate the minimum requirement of a recipient and template
       unless Penpal.domain_key
         raise DeliveryError,
