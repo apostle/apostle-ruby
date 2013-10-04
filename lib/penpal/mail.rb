@@ -51,6 +51,8 @@ module Penpal
 
     # Shortcut method to deliver a single message
     def deliver!
+      return true unless Penpal.deliver
+
       unless template_id && template_id != ""
         raise DeliveryError,
           "No email template_id provided"
