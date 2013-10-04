@@ -52,11 +52,11 @@ module Penpal
 
       raise DeliveryError, "Mail queue is empty" if emails.size == 0
 
-      payload, results = process_emails
+      payload, @results = process_emails
 
-      if results[:invalid].size > 0
+      if @results[:invalid].size > 0
         raise DeliveryError,
-          "Invalid emails: #{results[:invalid].size}"
+          "Invalid emails: #{@results[:invalid].size}"
       end
 
       # Deliver the payload
