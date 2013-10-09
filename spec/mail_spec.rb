@@ -1,16 +1,16 @@
 require_relative 'spec_helper'
-require 'penpal'
+require 'apostle'
 
-describe Penpal::Mail do
+describe Apostle::Mail do
   before do
-    Penpal.configure do |config|
+    Apostle.configure do |config|
      config.domain_key = "abc"
     end
   end
 
   describe "#initialize" do
     it "assigns template and attributes" do
-      mail = Penpal::Mail.new "template_slug",
+      mail = Apostle::Mail.new "template_slug",
         email: "email address",
         unknown_key: "val"
 
@@ -22,8 +22,8 @@ describe Penpal::Mail do
 
   describe "#deliver!" do
     it "returns raises an exception without a template id" do
-      mail = Penpal::Mail.new nil
-      expect(mail.deliver!).to raise_error(Penpal::DeliveryError, "No template")
+      mail = Apostle::Mail.new nil
+      expect(mail.deliver!).to raise_error(Apostle::DeliveryError, "No template")
     end
 
     it "delegates to a queue" do
@@ -38,7 +38,7 @@ describe Penpal::Mail do
 
   describe "to_h" do
     it "returns a hash of attributes" do
-      mail = Penpal::Mail.new "template_slug"
+      mail = Apostle::Mail.new "template_slug"
       mail.from = :f
       mail.email = 123
       mail.reply_to = "someone"
@@ -54,7 +54,7 @@ describe Penpal::Mail do
       }})
     end
     it "removes nil entries" do
-      mail = Penpal::Mail.new "slug"
+      mail = Apostle::Mail.new "slug"
       mail.email = "to"
       mail.to_h.must_equal({"to" => {
         "template_id" => "slug",

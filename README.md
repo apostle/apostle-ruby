@@ -1,4 +1,4 @@
-# Penpal
+# Apostle
 
 TODO: Write a gem description
 
@@ -6,7 +6,7 @@ TODO: Write a gem description
 
 Add this line to your application's Gemfile:
 
-    gem 'penpal'
+    gem 'apostle'
 
 And then execute:
 
@@ -14,14 +14,14 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install penpal
+    $ gem install apostle
 
 ## Domain Key
 
-You will need to provide your penpal domain key to send emails. Penpal looks in `ENV['PENPAL_DOMAIN_KEY']`, or you can set it manually.
+You will need to provide your apostle domain key to send emails. Apostle looks in `ENV['APOSTLE_DOMAIN_KEY']`, or you can set it manually.
 
 ```ruby
-Penpal.configure do |config|
+Apostle.configure do |config|
 	config.domain_key = 'Your domain key'
 end
 ```
@@ -31,22 +31,22 @@ end
 Sending an email is easy. A minimal email might look like this.
 
 ```ruby
-Penpal::Mail.new('welcome_email', email: "mal@mal.co.nz").deliver!
+Apostle::Mail.new('welcome_email', email: "mal@mal.co.nz").deliver!
 ```
-The first param `Penpal::Mail` expects is the template slug, and the second is a hash of mail information.
+The first param `Apostle::Mail` expects is the template slug, and the second is a hash of mail information.
 
 ### Adding data
 
 You can assign any data you want, and it will be passed to the API for hydrating your template. If you had a template that required `{{username}}`, you could send them like this:
 
 ```ruby
-mail = Penpal::Mail.new('welcome_email', email: 'mal@mal.co.nz', username: 'Snikch').deliver!
+mail = Apostle::Mail.new('welcome_email', email: 'mal@mal.co.nz', username: 'Snikch').deliver!
 ```
 
 You can also set any data directly on the mail object.
 
 ```ruby
-mail = Penpal::Mail.new('welcome_email')
+mail = Apostle::Mail.new('welcome_email')
 mail.email = 'mal@mal.co.nz'
 mail.username = 'Snikch'
 mail.deliver!
@@ -57,7 +57,7 @@ mail.deliver!
 In addition to the email, you can provide the name to be used in the `to` field of the email.
 
 ```ruby
-Penpal::Mail.new('welcome_email', email: "mal@mal.co.nz", name: "Mal Curtis").deliver!
+Apostle::Mail.new('welcome_email', email: "mal@mal.co.nz", name: "Mal Curtis").deliver!
 # Sends email with "to: Mal Curtis <mal@mal.co.nz>"
 ```
 
@@ -89,10 +89,10 @@ mail.header 'X-Some-Header'
 To speed up processing, you can send more than one email at a time.
 
 ```ruby
-queue = Penpal::Queue.new
+queue = Apostle::Queue.new
 
 3.times do |count|
-	queue << Penpal::Mail.new("welcome_email", email: "user#{count}@example.com")
+	queue << Apostle::Mail.new("welcome_email", email: "user#{count}@example.com")
 end
 
 queue.deliver!
@@ -100,24 +100,24 @@ queue.deliver!
 
 If any of the emails are invalid this will raise an exception and no emails will be sent; i.e. missing a template slug, or delivery address.
 
-You can either catch `Penpal::DeliveryError`, or call the safer `#deliver`, then access a hash of results on the queue via `#results`.
+You can either catch `Apostle::DeliveryError`, or call the safer `#deliver`, then access a hash of results on the queue via `#results`.
 
 ```ruby
-queue = Penpal::Queue.new
+queue = Apostle::Queue.new
 
-queue << Penpal::Mail.new("welcome_email", email: "mal@mal.co.nz")
-queue << Penpal::Mail.new("welcome_email")
+queue << Apostle::Mail.new("welcome_email", email: "mal@mal.co.nz")
+queue << Apostle::Mail.new("welcome_email")
 
 queue.deliver
 => false
 
 queue.results
 => {
-	:valid=>[#<Penpal::Mail:0x007fcee5ab2550>],
-	:invalid=>[#<Penpal::Mail:0x007fcee5ab23c0>]
+	:valid=>[#<Apostle::Mail:0x007fcee5ab2550>],
+	:invalid=>[#<Apostle::Mail:0x007fcee5ab23c0>]
 }
 queue.results[:invalid].first._exception
-=> #<Penpal::DeliveryError @message="No recipient provided">
+=> #<Apostle::DeliveryError @message="No recipient provided">
 ```
 
 ### Helpers
@@ -147,13 +147,13 @@ end
 
 ## Delivery Failure
 
-If delivery to Penpal fails, an exception will be raised. There are various events that could cause a failure:
+If delivery to Apostle fails, an exception will be raised. There are various events that could cause a failure:
 
-* `Penpal::Unauthorized`: The domain key was not provided, or valid
-* `Penpal::UnprocessableEntity`: The server returned a 422 response. Check the content of the message for more details, but this will likely be a validation / content error
-* `Penpal::ServerError`: Something went wrong at the Penpal API, you should try again with exponential backoff
-* `Penpal::Forbidden`: The server returned a 403 response. This should not occur on the delivery API
-* `Penpal::DeliveryError`: Anything which isn't covered by the above exceptions
+* `Apostle::Unauthorized`: The domain key was not provided, or valid
+* `Apostle::UnprocessableEntity`: The server returned a 422 response. Check the content of the message for more details, but this will likely be a validation / content error
+* `Apostle::ServerError`: Something went wrong at the Apostle API, you should try again with exponential backoff
+* `Apostle::Forbidden`: The server returned a 403 response. This should not occur on the delivery API
+* `Apostle::DeliveryError`: Anything which isn't covered by the above exceptions
 
 ## Contributing
 

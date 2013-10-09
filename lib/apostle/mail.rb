@@ -1,7 +1,7 @@
 require 'net/http'
 require 'json'
 
-module Penpal
+module Apostle
 
   class Mail
 
@@ -51,14 +51,14 @@ module Penpal
 
     # Shortcut method to deliver a single message
     def deliver!
-      return true unless Penpal.deliver
+      return true unless Apostle.deliver
 
       unless template_id && template_id != ""
         raise DeliveryError,
           "No email template_id provided"
       end
 
-      queue = Penpal::Queue.new
+      queue = Apostle::Queue.new
       queue.add self
       queue.deliver!
 

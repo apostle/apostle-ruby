@@ -1,6 +1,6 @@
 require 'json'
 
-module Penpal
+module Apostle
 
   class Queue
 
@@ -38,14 +38,14 @@ module Penpal
     end
 
     def deliver!
-      return true unless Penpal.deliver
+      return true unless Apostle.deliver
 
       # Validate the minimum requirement of a recipient and template
-      unless Penpal.domain_key
+      unless Apostle.domain_key
         raise DeliveryError,
-          "No Penpal Domain Key has been defined. Preferably this should be in your environment, as ENV['PENPAL_DOMAIN_KEY']. If you need to configure this manually, you can call Penpal.configure.
+          "No Apostle Domain Key has been defined. Preferably this should be in your environment, as ENV['APOSTLE_DOMAIN_KEY']. If you need to configure this manually, you can call Apostle.configure.
 
-      Penpal.configure do |config|
+      Apostle.configure do |config|
         config.domain_key = 'Your domain key'
       end"
       end
@@ -97,12 +97,12 @@ module Penpal
     end
 
     def deliver_payload(payload)
-      delivery_api = Penpal.delivery_host
+      delivery_api = Apostle.delivery_host
 
       req = Net::HTTP::Post.new(
         "/",
         'Content-Type' =>'application/json',
-        "Authorization" => "Bearer #{Penpal.domain_key}")
+        "Authorization" => "Bearer #{Apostle.domain_key}")
       if delivery_api.user
         req.basic_auth delivery_api.user, delivery_api.password
       end
@@ -132,15 +132,15 @@ module Penpal
 
       raise case response.code.to_i
       when 401
-        Penpal::Unauthorized
+        Apostle::Unauthorized
       when 403
-        Penpal::Forbidden
+        Apostle::Forbidden
       when 422
-        Penpal::UnprocessableEntity
+        Apostle::UnprocessableEntity
       when 500
-        Penpal::ServerError
+        Apostle::ServerError
       else
-        Penpal::DeliveryError
+        Apostle::DeliveryError
       end, message
 
       response

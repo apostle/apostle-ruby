@@ -1,3 +1,3 @@
-module Penpal
+module Apostle
   VERSION = "0.0.1"
 end

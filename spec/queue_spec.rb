@@ -1,21 +1,21 @@
 require_relative 'spec_helper'
 
-Penpal.domain_key = "abc123"
+Apostle.domain_key = "abc123"
 
-describe Penpal::Queue do
+describe Apostle::Queue do
   it "sends the auth header" do
-    stub = stub_request(:any, Penpal.delivery_host.to_s).with(
+    stub = stub_request(:any, Apostle.delivery_host.to_s).with(
       headers: { "Authorization" => "Bearer abc123" }
     )
-    queue = Penpal::Queue.new
+    queue = Apostle::Queue.new
     queue.send :deliver_payload, {}
     assert_requested(stub)
   end
 
   it "sends grouped requests" do
-    queue = Penpal::Queue.new
-    mail1 = Penpal::Mail.new "slug1", email: "recipient1"
-    mail2 = Penpal::Mail.new "slug2", email: "recipient2"
+    queue = Apostle::Queue.new
+    mail1 = Apostle::Mail.new "slug1", email: "recipient1"
+    mail2 = Apostle::Mail.new "slug2", email: "recipient2"
 
     queue << mail1
     queue << mail2
@@ -33,9 +33,9 @@ describe Penpal::Queue do
   end
 
   it "validates emails" do
-    queue = Penpal::Queue.new
-    mail1 = Penpal::Mail.new nil, email: "recipient1@example.com"
-    mail2 = Penpal::Mail.new "slug2"
+    queue = Apostle::Queue.new
+    mail1 = Apostle::Mail.new nil, email: "recipient1@example.com"
+    mail2 = Apostle::Mail.new "slug2"
 
     queue << mail1
     queue << mail2
@@ -52,7 +52,7 @@ describe Penpal::Queue do
 
   describe "#deliver" do
     it "returns false if no delivery occurs" do
-      queue = Penpal::Queue.new
+      queue = Apostle::Queue.new
       queue.deliver.must_equal(false)
     end
   end

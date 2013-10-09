@@ -1,11 +1,11 @@
-require "penpal/version"
-require 'penpal/mail'
-require 'penpal/queue'
+require "apostle/version"
+require 'apostle/mail'
+require 'apostle/queue'
 require 'uri'
 
-module Penpal
-  @@delivery_host = URI(ENV['PENPAL_DELIVERY_HOST'] || 'http://deliver.apostle.io')
-  @@domain_key = ENV['PENPAL_DOMAIN_KEY']
+module Apostle
+  @@delivery_host = URI(ENV['APOSTLE_DELIVERY_HOST'] || 'http://deliver.apostle.io')
+  @@domain_key = ENV['APOSTLE_DOMAIN_KEY']
   @@deliver = true
 
   def self.delivery_host=(host)
