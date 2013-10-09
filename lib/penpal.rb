@@ -4,8 +4,7 @@ require 'penpal/queue'
 require 'uri'
 
 module Penpal
-  # TODO: Hardcode default delivery host
-  @@delivery_host = URI(ENV['PENPAL_DELIVERY_HOST'] || 'http://penpal-deliver.herokuapp.com')
+  @@delivery_host = URI(ENV['PENPAL_DELIVERY_HOST'] || 'http://deliver.apostle.io')
   @@domain_key = ENV['PENPAL_DOMAIN_KEY']
   @@deliver = true
 
