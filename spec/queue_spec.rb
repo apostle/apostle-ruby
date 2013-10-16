@@ -1,8 +1,11 @@
 require_relative 'spec_helper'
 
-Apostle.domain_key = "abc123"
 
 describe Apostle::Queue do
+  before do
+    Apostle.domain_key = "abc123"
+  end
+
   it "sends the auth header" do
     stub = stub_request(:any, Apostle.delivery_host.to_s).with(
       headers: { "Authorization" => "Bearer abc123" }

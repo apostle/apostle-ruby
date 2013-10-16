@@ -21,11 +21,6 @@ describe Apostle::Mail do
   end
 
   describe "#deliver!" do
-    it "returns raises an exception without a template id" do
-      mail = Apostle::Mail.new nil
-      expect(mail.deliver!).to raise_error(Apostle::DeliveryError, "No template")
-    end
-
     it "delegates to a queue" do
     end
 
