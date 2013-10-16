@@ -1,4 +1,6 @@
 # Apostle
+[![Build Status](https://travis-ci.org/apostle/apostle-ruby.png?branch=master)](https://travis-ci.org/apostle/apostle-ruby)
+[![Gem Version](https://badge.fury.io/rb/apostle.png)](http://badge.fury.io/rb/apostle)
 
 TODO: Write a gem description
 
