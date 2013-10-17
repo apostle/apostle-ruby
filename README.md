@@ -4,6 +4,9 @@
 
 TODO: Write a gem description
 
+## Rails
+If you're using Rails, you should know that [apostle-rails](https://github.com/apostle/apostle-rails) exists. Knowledge of this Gem is still important however, as `apostle-rails` will bring this gem along for the ride.
+
 ## Installation
 
 Add this line to your application's Gemfile:
