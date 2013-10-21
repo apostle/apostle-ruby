@@ -1,8 +1,8 @@
-# Apostle
+# Apostle Ruby
 [![Build Status](https://travis-ci.org/apostle/apostle-ruby.png?branch=master)](https://travis-ci.org/apostle/apostle-ruby)
 [![Gem Version](https://badge.fury.io/rb/apostle.png)](http://badge.fury.io/rb/apostle)
 
-TODO: Write a gem description
+Ruby bindings for [Apostle.io](http://apostle.io)
 
 ## Rails
 If you're using Rails, you should know that [apostle-rails](https://github.com/apostle/apostle-rails) exists. Knowledge of this Gem is still important however, as `apostle-rails` will bring this gem along for the ride.
@@ -159,6 +159,11 @@ If delivery to Apostle fails, an exception will be raised. There are various eve
 * `Apostle::ServerError`: Something went wrong at the Apostle API, you should try again with exponential backoff
 * `Apostle::Forbidden`: The server returned a 403 response. This should not occur on the delivery API
 * `Apostle::DeliveryError`: Anything which isn't covered by the above exceptions
+
+
+## Who
+Created with ♥ by [Mal Curtis](http://github.com/snikch) ([@snikchnz](http://twitter.com/snikchnz))
+
 
 ## Contributing
 
