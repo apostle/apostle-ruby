@@ -102,6 +102,7 @@ module Apostle
       req = Net::HTTP::Post.new(
         "/",
         'Content-Type' => 'application/json',
+        'Apostle-Client' => 'Ruby/' + Apostle::VERSION,
         "Authorization" => "Bearer #{Apostle.domain_key}")
       if delivery_api.user
         req.basic_auth delivery_api.user, delivery_api.password
