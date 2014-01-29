@@ -6,3 +6,9 @@ rvm:
   - jruby-19mode # JRuby in 1.9 mode
   - rbx
   - rbx-2
+matrix:
+  allow_failures:
+    - rvm: rbx
+cache: bundler
+gemfile:
+  - Gemfile.travis
