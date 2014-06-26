@@ -89,6 +89,16 @@ mail.header 'X-Some-Header'
 => "my custom header"
 ```
 
+### Attachments
+
+You can send attachments by adding to attachments hash on the mail object.
+
+```ruby
+mail.attachments["invoice.pdf"] = File.read("invoices/12345.pdf")
+```
+
+
+
 ## Sending Multiple Emails
 
 To speed up processing, you can send more than one email at a time.
