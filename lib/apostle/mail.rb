@@ -1,4 +1,5 @@
 require 'net/http'
+require 'base64'
 require 'json'
 
 module Apostle
@@ -79,6 +80,7 @@ module Apostle
           "layout_id" => layout_id.to_s,
           "name" => name.to_s,
           "reply_to" => reply_to.to_s,
+          "attachments" => encoded_attachments,
           "template_id" => template_id.to_s
         }.delete_if { |k, v| !v || v == '' }
       }
@@ -87,5 +89,21 @@ module Apostle
     def to_json
       JSON.generate(to_h)
     end
+
+    def attachments
+      @_attachments ||= {}
+    end
+
+    private
+
+    def encoded_attachments
+      return nil unless @_attachments
+      attachments.inject({}) do |h, (name, content)|
+        h[name] = Base64.encode64(content)
+        h
+      end
+    end
+
+
   end
 end

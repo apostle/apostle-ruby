@@ -20,6 +20,24 @@ describe Apostle::Mail do
     end
   end
 
+  describe "#attachments" do
+    it "is an object" do
+      mail = Apostle::Mail.new 'test'
+      mail.attachments.must_equal({})
+    end
+
+    it "gets encoded" do
+      mail = Apostle::Mail.new 'test', email: "123"
+      mail.attachments["test.png"] = "test"
+
+      mail.to_h.must_equal({"123" => {
+        "template_id" => "test",
+        "attachments" => {"test.png" => Base64.encode64("test")},
+        "data" => {}
+      }})
+    end
+  end
+
   describe "#deliver!" do
     it "delegates to a queue" do
     end
