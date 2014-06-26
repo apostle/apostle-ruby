@@ -98,9 +98,12 @@ module Apostle
 
     def encoded_attachments
       return nil unless @_attachments
-      attachments.inject({}) do |h, (name, content)|
-        h[name] = Base64.encode64(content)
-        h
+      attachments.inject([]) do |a, (name, content)|
+        a.push({
+          "name" => name,
+          "data" => Base64.encode64(content),
+        })
+        a
       end
     end
 

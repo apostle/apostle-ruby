@@ -32,7 +32,7 @@ describe Apostle::Mail do
 
       mail.to_h.must_equal({"123" => {
         "template_id" => "test",
-        "attachments" => {"test.png" => Base64.encode64("test")},
+        "attachments" => [{"name" => "test.png", "data" => Base64.encode64("test")}],
         "data" => {}
       }})
     end
