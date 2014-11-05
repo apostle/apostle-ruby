@@ -34,6 +34,14 @@ module Apostle
       end
     end
 
+    def cc=(address)
+      header("cc", address)
+    end
+
+    def bcc=(address)
+      header("bcc", address)
+    end
+
     # Allow convenience setters for the data payload
     # E.G. mail.potato= "Something" will set @data['potato']
     def method_missing(method, *args)

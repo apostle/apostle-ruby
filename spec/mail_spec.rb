@@ -56,6 +56,8 @@ describe Apostle::Mail do
       mail.email = 123
       mail.reply_to = "someone"
       mail.name = "name"
+      mail.cc = "user+cc@apostle.io"
+      mail.bcc = ["user+bcc1@apostle.io", "user+bcc2@apostle.io"]
       mail.data = { "Hello" => "World" }
       mail.foo = 'Bar'
       mail.to_h.must_equal({"123" => {
@@ -63,6 +65,10 @@ describe Apostle::Mail do
         "from" => "f",
         "reply_to" => "someone",
         "name" => "name",
+        "headers" => {
+          "cc"=>"user+cc@apostle.io",
+          "bcc"=>["user+bcc1@apostle.io", "user+bcc2@apostle.io"]
+        },
         "data" => { "Hello" => "World", "foo" => "Bar"}
       }})
     end
