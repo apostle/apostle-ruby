@@ -75,6 +75,21 @@ mail.from = 'support@example.com'
 mail.reply_to = 'noreply@example.com'
 ```
 
+### Adding Cc and Bcc
+
+You can add Cc and Bcc with the Apostle mail object. 
+
+```ruby
+mail.cc = 'samplecc@example.com'
+mail.bcc = 'samplebcc@example.com'
+```
+
+It also supports adding multiple emails to Cc and Bcc as an array, 
+
+```ruby
+mail.cc = ['email1@example.com', 'email2@example.com']
+mail.bcc = ['sample1@example.com', 'sample2@example.com']
+```
 
 ### Additional Headers
 
