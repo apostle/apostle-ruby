@@ -3,25 +3,23 @@ require 'base64'
 require 'json'
 
 module Apostle
-
   class Mail
-
     attr_accessor :data,
-      :email,
-      :from,
-      :headers,
-      :layout_id,
-      :name,
-      :reply_to,
-      :template_id,
-      :_exception
+                  :email,
+                  :from,
+                  :headers,
+                  :layout_id,
+                  :name,
+                  :reply_to,
+                  :template_id,
+                  :_exception
 
     def initialize(template_id, options = {})
       @template_id = template_id
       @data = {}
 
       options.each do |k, v|
-        self.send("#{k}=", v)
+        send("#{k}=", v)
       end
     end
 
@@ -35,36 +33,35 @@ module Apostle
     end
 
     def cc=(address)
-      header("cc", address)
+      header('cc', address)
     end
 
     def bcc=(address)
-      header("bcc", address)
+      header('bcc', address)
     end
 
     # Allow convenience setters for the data payload
     # E.G. mail.potato= "Something" will set @data['potato']
     def method_missing(method, *args)
-      return unless method.match /.*=/
+      return unless method =~ /.*=/
+
       @data[method.to_s.gsub(/=$/, '')] = args.first
     end
 
     def deliver
-      begin
-        deliver!
-        true
-      rescue DeliveryError => e
-        false
-      end
+      deliver!
+      true
+    rescue DeliveryError => e
+      false
     end
 
     # Shortcut method to deliver a single message
     def deliver!
       return true unless Apostle.deliver
 
-      unless template_id && template_id != ""
+      unless template_id && template_id != ''
         raise DeliveryError,
-          "No email template_id provided"
+              'No email template_id provided'
       end
 
       queue = Apostle::Queue.new
@@ -81,16 +78,16 @@ module Apostle
 
     def to_h
       {
-        "#{self.email.to_s}" => {
-          "data" => @data,
-          "from" => from.to_s,
-          "headers" => headers,
-          "layout_id" => layout_id.to_s,
-          "name" => name.to_s,
-          "reply_to" => reply_to.to_s,
-          "attachments" => encoded_attachments,
-          "template_id" => template_id.to_s
-        }.delete_if { |k, v| !v || v == '' }
+        email.to_s => {
+          'data' => @data,
+          'from' => from.to_s,
+          'headers' => headers,
+          'layout_id' => layout_id.to_s,
+          'name' => name.to_s,
+          'reply_to' => reply_to.to_s,
+          'attachments' => encoded_attachments,
+          'template_id' => template_id.to_s
+        }.delete_if { |_k, v| !v || v == '' }
       }
     end
 
@@ -106,15 +103,13 @@ module Apostle
 
     def encoded_attachments
       return nil unless @_attachments
-      attachments.inject([]) do |a, (name, content)|
-        a.push({
-          "name" => name,
-          "data" => Base64.encode64(content),
-        })
-        a
+
+      attachments.each_with_object([]) do |(name, content), a|
+        a.push(
+          'name' => name,
+          'data' => Base64.encode64(content)
+        )
       end
     end
-
-
   end
 end
