@@ -6,3 +6,5 @@ rvm:
   - 1.9.2
   - jruby-19mode # JRuby in 1.9 mode
 cache: bundler
+script:
+  - rubocop
