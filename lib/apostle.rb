@@ -1,4 +1,4 @@
-require "apostle/version"
+require 'apostle/version'
 require 'apostle/mail'
 require 'apostle/queue'
 require 'uri'
@@ -49,5 +49,4 @@ module Apostle
   Forbidden = Class.new(DeliveryError)
   UnprocessableEntity = Class.new(DeliveryError)
   ServerError = Class.new(DeliveryError)
-
 end
