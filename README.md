@@ -27,7 +27,7 @@ You will need to provide your apostle domain key to send emails. Apostle looks i
 
 ```ruby
 Apostle.configure do |config|
-	config.domain_key = 'Your domain key'
+config.domain_key = 'Your domain key'
 end
 ```
 
@@ -36,7 +36,7 @@ end
 Sending an email is easy. A minimal email might look like this.
 
 ```ruby
-Apostle::Mail.new('welcome_email', email: "mal@mal.co.nz").deliver!
+ Apostle::Mail.new('welcome_email', email: "mal@mal.co.nz").deliver!
 ```
 The first param `Apostle::Mail` expects is the template slug, and the second is a hash of mail information.
 
@@ -122,7 +122,7 @@ To speed up processing, you can send more than one email at a time.
 queue = Apostle::Queue.new
 
 3.times do |count|
-	queue << Apostle::Mail.new("welcome_email", email: "user#{count}@example.com")
+  queue << Apostle::Mail.new("welcome_email", email: "user#{count}@example.com")
 end
 
 queue.deliver!
@@ -143,7 +143,7 @@ queue.deliver
 
 queue.results
 => {
-	:valid=>[#<Apostle::Mail:0x007fcee5ab2550>],
+        :valid=>[#<Apostle::Mail:0x007fcee5ab2550>],
 	:invalid=>[#<Apostle::Mail:0x007fcee5ab23c0>]
 }
 queue.results[:invalid].first._exception
@@ -156,11 +156,11 @@ You have access to `#size` and `#clear` on the queue. You can use this to group 
 
 ```ruby
 users.each do |user|
-	queue << Penpan::Mail.new('welcome', email: user.email)
-	if queue.size == 1000
-		queue.deliver
-		queue.clear
-	end
+  queue << Penpan::Mail.new('welcome', email: user.email)
+  if queue.size == 1000
+    queue.deliver
+    queue.clear
+   end
 end
 ```
 
@@ -168,10 +168,10 @@ Or use the helper method `#flush`, which does exactly this, calls `#deliver` the
 
 ```ruby
 users.each do |user|
-	queue << Penpan::Mail.new('welcome', email: user.email)
-	if queue.size == 1000
-		queue.flush
-	end
+  queue << Penpan::Mail.new('welcome', email: user.email)
+  if queue.size == 1000
+    queue.flush
+   end
 end
 ```
 
